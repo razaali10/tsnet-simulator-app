@@ -1,0 +1,10 @@
+{
+  "event_type": "valve_closure",
+  "pipe_id": "P23",
+  "start_time": 10,
+  "closure_time": 2,
+  "tf": 60.0,
+  "dt": 0.01,
+  "monitor_nodes": ["N1", "N2"],
+  "monitor_pipes": ["P10"]
+}

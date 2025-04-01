@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: TSNET Transient Simulation API
+  version: 1.0.0
+servers:
+  - url: https://tsnet-sim.onrender.com
+paths:
+  /run-simulation:
+    post:
+      summary: Run a transient simulation using TSNET on an EPANET model
+      operationId: runTSNETSimulation
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                inp_file:
+                  type: string
+                  format: binary
+                  description: EPANET .inp file
+                transient_params:
+                  type: string
+                  description: JSON string of transient input parameters
+      responses:
+        '200':
+          description: Simulation results including pressures and velocities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  node_pressures:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: number
+                  pipe_velocities:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: number
+                  time:
+                    type: array
+                    items:
+                      type: number
+        '400':
+          description: Missing input or invalid format
+        '500':
+          description: Internal server error
